@@ -6,6 +6,14 @@ const addButton =  document.getElementById("add-task-btn");
 const taskInput =  document.getElementById("task-input");
 const taskList  = document.getElementById("task-list");
 
+//Load tasks from Local Storage on page load
+function loadTasks(){
+    const storedTasks = JSON.parse(localStorage.getItem('tasks') || '[]');
+    storedTasks.forEaach(taskText => {
+        addTask(taskText, false); // pass `false` to avoid saving duplicates
+    });
+}
+
 //Create the add task Function;
 const addTask = function(){
 const taskText = taskInput.value.trim();
@@ -51,5 +59,7 @@ taskInput.addEventListener("keypress", function (event) {
 
 });
 
-document.addEventListener('DOMContentLoaded', addTask);
+document.addEventListener('DOMContentLoaded', function(){
+    loadTasks();
+});
    
